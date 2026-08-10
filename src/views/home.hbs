@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBite — Food Delivery</title>
+    <style>
+        /* ── Reset ── */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        /* ── Page Layout ── */
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        /* ── Navbar ── */
+        .navbar {
+            background-color: #2c3e50;
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-brand span {
+            color: #e74c3c;
+        }
+
+        .navbar-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* ── Nav Buttons ── */
+        .btn-nav {
+            padding: 8px 22px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-nav-outline {
+            background-color: transparent;
+            color: #ecf0f1;
+            border: 2px solid #ecf0f1;
+        }
+
+        .btn-nav-outline:hover {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        .btn-nav-solid {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-nav-solid:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-nav-logout {
+            background-color: transparent;
+            color: #e74c3c;
+            border: 2px solid #e74c3c;
+        }
+
+        .btn-nav-logout:hover {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        /* Admin badge in navbar */
+        .admin-badge {
+            font-size: 12px;
+            color: #bdc3c7;
+            margin-right: 4px;
+        }
+
+        /* ── Hero Section ── */
+        .hero {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+        }
+
+        .hero-inner {
+            max-width: 560px;
+            text-align: center;
+        }
+
+        .hero-emoji {
+            font-size: 64px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 800;
+            color: #2c3e50;
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+
+        .hero-title span {
+            color: #e74c3c;
+        }
+
+        .hero-subtitle {
+            font-size: 17px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 36px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-hero {
+            padding: 14px 36px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-hero-primary {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-hero-primary:hover {
+            background-color: #c0392b;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.35);
+        }
+
+        .btn-hero-secondary {
+            background-color: white;
+            color: #2c3e50;
+            border: 2px solid #2c3e50;
+        }
+
+        .btn-hero-secondary:hover {
+            background-color: #2c3e50;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        /* Admin logged-in hero state */
+        .hero-admin-note {
+            margin-top: 28px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .hero-admin-note a {
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .hero-admin-note a:hover {
+            text-decoration: underline;
+        }
+
+        /* ── Content Area (injected login/signup forms) ── */
+        #content-area {
+            max-width: 480px;
+            margin: 0 auto 48px auto;
+            padding: 0 20px;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            background-color: #2c3e50;
+            color: #bdc3c7;
+            text-align: center;
+            padding: 16px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── Navbar ── -->
+    <nav class="navbar">
+        <div class="navbar-brand">Quick<span>Bite</span> 🍔</div>
+        <div class="navbar-actions">
+
+            {{#if isAdminLoggedIn}}
+                <!-- Admin is logged in: show admin label + logout -->
+                <span class="admin-badge">👤 Admin</span>
+                <button class="btn-nav btn-nav-logout" onclick="logoutAdmin()">Logout</button>
+            {{else}}
+                <!-- Guest: show Login & Sign Up -->
+                <button class="btn-nav btn-nav-outline" id="nav-login-btn">Login</button>
+                <button class="btn-nav btn-nav-solid" id="nav-signup-btn">Sign Up</button>
+            {{/if}}
+
+        </div>
+    </nav>
+
+    <!-- ── Hero ── -->
+    <section class="hero">
+        <div class="hero-inner">
+
+            {{#if isAdminLoggedIn}}
+                <!-- Admin logged-in hero -->
+                <span class="hero-emoji">🛠️</span>
+                <h1 class="hero-title">Welcome back, <span>Admin</span></h1>
+                <p class="hero-subtitle">
+                    You're logged in as an administrator. Manage users, food items, and orders from the dashboard.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/users">
+                        <button class="btn-hero btn-hero-primary">Go to Dashboard</button>
+                    </a>
+                    <button class="btn-hero btn-hero-secondary" onclick="logoutAdmin()">Logout</button>
+                </div>
+                <p class="hero-admin-note">
+                    Looking for <a href="/orders">Orders</a> or <a href="/food-items">Food Items</a>?
+                </p>
+
+            {{else}}
+                <!-- Guest hero -->
+                <span class="hero-emoji">🍕</span>
+                <h1 class="hero-title">Hot food, <span>fast delivery</span></h1>
+                <p class="hero-subtitle">
+                    Order from your favourite restaurants and get fresh meals delivered right to your door.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn-hero btn-hero-primary" id="hero-login-btn">Login</button>
+                    <button class="btn-hero btn-hero-secondary" id="hero-signup-btn">Create Account</button>
+                </div>
+            {{/if}}
+
+        </div>
+    </section>
+
+    <!-- ── Injected Login / Signup Forms ── -->
+    <div id="content-area"></div>
+
+    <!-- ── Footer ── -->
+    <footer class="footer">
+        &copy; 2025 QuickBite. All rights reserved.
+    </footer>
+
+    <script>
+
+        // ── Fetch & inject Login form ──
+        async function fetchLoginPage() {
+            try {
+                const res = await fetch("/login-page");
+                if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+                document.getElementById('content-area').innerHTML = await res.text();
+                // Scroll smoothly to the injected form
+                document.getElementById('content-area').scrollIntoView({ behavior: 'smooth' });
+            } catch (err) {
+                console.error(err.message);
+            }
+        }
+
+        // ── Fetch & inject Sign Up form ──
+        async function fetchSignUpPage() {
+            try {
+                const res = await fetch("/signup-page");
+                if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+                document.getElementById('content-area').innerHTML = await res.text();
+                document.getElementById('content-area').scrollIntoView({ behavior: 'smooth' });
+            } catch (err) {
+                console.error(err.message);
+            }
+        }
+
+        // ── Admin Logout ──
+        async function logoutAdmin() {
+            try {
+                const res = await fetch("/logout", { method: "POST" });
+                if (res.ok) {
+                    window.location.reload();
+                } else {
+                    alert("Logout failed. Please try again.");
+                }
+            } catch (err) {
+                console.error("Logout error:", err);
+                alert("Network error during logout.");
+            }
+        }
+
+        // ── Attach button listeners (only present when guest) ──
+        const navLogin  = document.getElementById('nav-login-btn');
+        const navSignup = document.getElementById('nav-signup-btn');
+        const heroLogin  = document.getElementById('hero-login-btn');
+        const heroSignup = document.getElementById('hero-signup-btn');
+
+        if (navLogin)  navLogin.addEventListener('click', fetchLoginPage);
+        if (navSignup) navSignup.addEventListener('click', fetchSignUpPage);
+        if (heroLogin)  heroLogin.addEventListener('click', fetchLoginPage);
+        if (heroSignup) heroSignup.addEventListener('click', fetchSignUpPage);
+
+    </script>
+</body>
+</html>

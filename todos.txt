@@ -1,0 +1,5 @@
+1. git
+3. add validation middleware
+4. add forgot password feature 
+7. add refresh tokens
+9. add payment feature
