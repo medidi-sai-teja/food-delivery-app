@@ -87,10 +87,10 @@
         <aside class="sidebar">
             <h2>Dashboard</h2>
             <ul>
-                <li><a href="/dashboard">📊 Dashboard</a></li>
-                <li><a href="/users"      class="{{#if page.users}}active{{/if}}">👤 User Management</a></li>
-                <li><a href="/food-items" class="{{#if page.food}}active{{/if}}">🍔 Food Items</a></li>
-                <li><a href="/orders"     class="{{#if page.orders}}active{{/if}}">📦 Orders</a></li>
+                <li><a href="/admin/dashboard">📊 Dashboard</a></li>
+                <li><a href="/admin/users"      class="{{#if page.users}}active{{/if}}">👤 User Management</a></li>
+                <li><a href="/admin/food-items" class="{{#if page.food}}active{{/if}}">🍔 Food Items</a></li>
+                <li><a href="/admin/orders"     class="{{#if page.orders}}active{{/if}}">📦 Orders</a></li>
             </ul>
             <div class="sidebar-footer">
                 <form action="/admin/logout" method="POST">
@@ -159,7 +159,7 @@
             selectElement.setAttribute('data-status', newStatus);
 
             try {
-                const response = await fetch(`/orders/${orderId}/`, {
+                const response = await fetch(`/admin/orders/${orderId}/`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ status: newStatus })

@@ -300,10 +300,10 @@
         <aside class="sidebar">
             <h2>Dashboard</h2>
             <ul>
-                <li><a href="/dashboard">📊 Dashboard</a></li>
-                <li><a href="/users"      class="{{#if page.users}}active{{/if}}">👤 User Management</a></li>
-                <li><a href="/food-items" class="{{#if page.food}}active{{/if}}">🍔 Food Items</a></li>
-                <li><a href="/orders"     class="{{#if page.orders}}active{{/if}}">📦 Orders</a></li>
+                <li><a href="/admin/dashboard">📊 Dashboard</a></li>
+                <li><a href="/admin/users"      class="{{#if page.users}}active{{/if}}">👤 User Management</a></li>
+                <li><a href="/admin/food-items" class="{{#if page.food}}active{{/if}}">🍔 Food Items</a></li>
+                <li><a href="/admin/orders"     class="{{#if page.orders}}active{{/if}}">📦 Orders</a></li>
             </ul>
             <div class="sidebar-footer">
                 <form action="/admin/logout" method="POST">
@@ -322,7 +322,6 @@
                         <th>User ID</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Role</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -332,11 +331,6 @@
                         <td class="id-cell user-id-cell">{{this.uid}}</td>
                         <td>{{this.name}}</td>
                         <td>{{this.email}}</td>
-                        <td>
-                            <span class="role-badge {{#if (eq this.role 'admin')}}role-admin{{else}}role-customer{{/if}}">
-                                {{this.role}}
-                            </span>
-                        </td>
                         <td>
                             <button type="button" class="btn-delete" onclick="openConfirmModal(this)">Delete Account</button>
                         </td>

@@ -17,12 +17,10 @@ async function createFoodItem(req, res) {
   }
 }
 
-async function getFoodItem(req, res) {
+async function getFoodItems(req, res) {
   try {
     const foodItems = await FoodItem.find({}, { name: 1, price: 1 , fid:1});
-    res.status(200).render("../views/admin.views/foodItems", { foodItems });
-
-    // res.status(200).json({foodItems})
+    return res.status(200).render('admin/foodItems', { foodItems });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Internal Server Error!" });
@@ -73,7 +71,7 @@ async function deleteFoodItem(req, res) {
 
 module.exports = {
   createFoodItem,
-  getFoodItem,
+  getFoodItems,
   updateFoodItem,
   deleteFoodItem,
 };

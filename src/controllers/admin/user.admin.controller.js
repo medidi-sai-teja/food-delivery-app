@@ -3,7 +3,7 @@ const User = require("../../models/User");
 async function getUsers(req, res) {
   try {
     const users = await User.find({ role: { $ne: "admin" } });
-    res.status(200).render("admin.views/userManagement", { users });
+    res.status(200).render("admin/userManagement", { users });
   } catch (err) {
     console.log(err);
     res.status(500).json("No Users available!");
@@ -15,7 +15,7 @@ async function deleteUser(req, res) {
     console.log("Request body is missing!");
     return res.status(400).json({ message: "user info is required!" });
   }
-  const { userId } = req.body;
+  const { userId } = req.uid;
   // console.log(req.body)
 
   try {

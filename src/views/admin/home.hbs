@@ -247,13 +247,13 @@
                     You're logged in as an administrator. Manage users, food items, and orders from the dashboard.
                 </p>
                 <div class="hero-buttons">
-                    <a href="/users">
+                    <a href="/admin/users">
                         <button class="btn-hero btn-hero-primary">Go to Dashboard</button>
                     </a>
                     <button class="btn-hero btn-hero-secondary" onclick="logoutAdmin()">Logout</button>
                 </div>
                 <p class="hero-admin-note">
-                    Looking for <a href="/orders">Orders</a> or <a href="/food-items">Food Items</a>?
+                    Looking for <a href="/admin/orders">Orders</a> or <a href="/admin/food-items">Food Items</a>?
                 </p>
 
             {{else}}
@@ -285,7 +285,7 @@
         // ── Fetch & inject Login form ──
         async function fetchLoginPage() {
             try {
-                const res = await fetch("/login-page");
+                const res = await fetch("/admin/login-page");
                 if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
                 document.getElementById('content-area').innerHTML = await res.text();
                 // Scroll smoothly to the injected form
@@ -298,7 +298,7 @@
         // ── Fetch & inject Sign Up form ──
         async function fetchSignUpPage() {
             try {
-                const res = await fetch("/signup-page");
+                const res = await fetch("/admin/signup-page");
                 if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
                 document.getElementById('content-area').innerHTML = await res.text();
                 document.getElementById('content-area').scrollIntoView({ behavior: 'smooth' });
@@ -310,7 +310,7 @@
         // ── Admin Logout ──
         async function logoutAdmin() {
             try {
-                const res = await fetch("/logout", { method: "POST" });
+                const res = await fetch("/admin/logout", { method: "POST" });
                 if (res.ok) {
                     window.location.reload();
                 } else {

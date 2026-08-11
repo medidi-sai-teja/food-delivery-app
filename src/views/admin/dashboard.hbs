@@ -229,13 +229,13 @@
     <aside class="sidebar">
         <h2>Dashboard</h2>
         <ul>
-            <li><a href="/dashboard" class="{{#if page.dashboard}}active{{/if}}">📊 Dashboard</a></li>
-            <li><a href="/users"     class="{{#if page.users}}active{{/if}}">👤 User Management</a></li>
-            <li><a href="/food-items"class="{{#if page.food}}active{{/if}}">🍔 Food Items</a></li>
-            <li><a href="/orders"    class="{{#if page.orders}}active{{/if}}">📦 Orders</a></li>
+            <li><a href="/admin/dashboard" class="{{#if page.dashboard}}active{{/if}}">📊 Dashboard</a></li>
+            <li><a href="/admin/users"     class="{{#if page.users}}active{{/if}}">👤 User Management</a></li>
+            <li><a href="/admin/food-items"class="{{#if page.food}}active{{/if}}">🍔 Food Items</a></li>
+            <li><a href="/admin/orders"    class="{{#if page.orders}}active{{/if}}">📦 Orders</a></li>
         </ul>
         <div class="sidebar-footer">
-            <form action="/admin/logout" method="POST">
+            <form action= "/admin/logout" method="POST">
                 <button type="submit" class="btn-logout">⏻ Logout</button>
             </form>
         </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Sign Up</title>
+    <title>Admin Login</title>
     <style>
         * {
             box-sizing: border-box;
@@ -165,35 +165,30 @@
 
     <div class="page-center">
         <div class="auth-card">
-            <h1>Create Admin Account</h1>
-            <p class="subtitle">Register a new administrator</p>
+            <h1>Admin Login</h1>
+            <p class="subtitle">Sign in to access the dashboard</p>
 
             {{#if errorMessage}}
             <div class="error-msg">{{errorMessage}}</div>
             {{/if}}
 
-            <form action="/admin/signup" method="POST">
-
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" placeholder="John Doe" required>
-                </div>
+            <form action="/admin/login" method="POST">
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="admin@example.com" required>
+                    <input type="email" id="email" name="email" placeholder="admin@example.com">
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" minlength="8" placeholder="Min. 8 characters" required>
+                    <input type="password" id="password" name="password" minlength="8" placeholder="••••••••" >
                 </div>
 
-                <button type="submit" class="btn-submit">Create Account</button>
+                <button type="submit" class="btn-submit">Login</button>
             </form>
 
             <div class="auth-footer">
-                Already have an account? <a href="/login-page">Login</a>
+                Don't have an account? <a href="/admin/signup-page">Sign up</a>
             </div>
         </div>
     </div>

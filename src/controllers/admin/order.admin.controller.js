@@ -13,22 +13,12 @@ async function getOrders(req, res) {
                                 .populate('user', 'uid name')
                                 .populate('foodItems', 'name')
       
-      console.log(orders);
       return res
         .status(200)
-        .render("../views/admin.views/ordersManagement", { orders });
+        .render("../views/admin/ordersManagement", { orders });
       // return res.status(200).json({orders})
     }
-
-    // Customer gets only the his/her orders 
-    const orders = await Order.find({ user: req.user.uid })
-      .populate("foodItems", "-__v")
-      .select("-user");
-    console.log(orders);
-    return res
-      .status(200)
-      .render("../views/ordersViews/customerOrdersView", { orders });
-    // res.status(200).json({orders})
+    res.status(401).redirect('/admin/')
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "internal server error!" });
