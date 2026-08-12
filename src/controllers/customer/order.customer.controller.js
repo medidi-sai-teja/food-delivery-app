@@ -8,8 +8,9 @@ async function getOrders(req, res) {
   const uid = req.user.uid;
   try {
 
+    const currentUser = await User.findOne({uid})
     // Customer gets only the his/her orders 
-    const customerOrders = await Order.find({ user: uid })
+    const customerOrders = await Order.find({ user: currentUser._id})
       .populate("foodItems", "-__v")
       .select("-user");
     // console.log(customerOrders);

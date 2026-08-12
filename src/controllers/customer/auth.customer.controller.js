@@ -11,7 +11,7 @@ async function signup(req, res) {
     const payload = { uid: user.uid, role: user.role };
     const token = jwt.sign(payload, process.env.SECRET_KEY);
 
-    res.cookie("token", token);
+    res.cookie("jwt", token);
     res.status(200).json({ message: "Profile Created!" });
   } catch (err) {
     console.log(err);
@@ -41,7 +41,7 @@ async function login(req, res) {
 }
 
 async function logout(req, res) {
-  res.clearCookie("token");
+  res.clearCookie("jwt");
   res.status(200).send("Logged out Successfully!");
 }
 

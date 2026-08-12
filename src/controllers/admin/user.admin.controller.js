@@ -15,12 +15,12 @@ async function deleteUser(req, res) {
     console.log("Request body is missing!");
     return res.status(400).json({ message: "user info is required!" });
   }
-  const { userId } = req.uid;
+  const uid  = req.body.uid;
   // console.log(req.body)
 
   try {
-    const user = await User.findOneAndDelete({uid:userId});
-    if (!user) {
+    const user = await User.findOneAndDelete({uid});
+    if (!user) {  
       console.log("User not found");
       return res.status(404).json({ message: "User not found!" });
     }

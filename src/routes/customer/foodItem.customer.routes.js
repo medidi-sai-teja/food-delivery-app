@@ -5,9 +5,16 @@ const jwt = require("jsonwebtoken");
 const foodItemRouter = express.Router();
 
 foodItemRouter.get(
+  "/food-items",
+  customerMiddlewares.verifyToken,
+  customerFoodItemControllers.getAllFoodItems,
+); // all or specific
+
+
+foodItemRouter.get(
   "/food-items/:fid",
   customerMiddlewares.verifyToken,
-  customerFoodItemControllers.getFoodItems,
-); // all or specific
+  customerFoodItemControllers.getFoodItemDetails,
+); 
 
 module.exports = foodItemRouter;
